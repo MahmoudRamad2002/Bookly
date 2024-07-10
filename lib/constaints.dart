@@ -1,6 +1,5 @@
 import 'dart:ui';
+import 'package:flutter/material.dart';
 
-class AppColors
-{
-  static const Color kPrimaryColor=Color(0xFF100B20);
-}
+   const Color kPrimaryColor=Color(0xFF100B20);
+   const Duration kTransitionDuration=Duration(milliseconds: 250);
