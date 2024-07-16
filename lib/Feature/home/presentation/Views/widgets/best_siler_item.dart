@@ -64,7 +64,8 @@ class BestSilerViewItem extends StatelessWidget {
                           style: TextStyles.textStyle20.copyWith(fontWeight:FontWeight.bold),
                         ),
                        Spacer(),
-                       const BookRating()
+                       const BookRating(
+                       )
                       ],
                     ),
                   ],
