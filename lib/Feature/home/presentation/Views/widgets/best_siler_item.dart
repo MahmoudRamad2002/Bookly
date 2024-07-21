@@ -1,21 +1,25 @@
+import 'package:bookly/Feature/home/data/models/book_models/book_model.dart';
 import 'package:bookly/Feature/home/presentation/Views/widgets/book_rating.dart';
+import 'package:bookly/Feature/home/presentation/Views/widgets/custom_list_view.dart';
 import 'package:bookly/core/utils/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../constaints.dart';
-import '../../../../../core/utils/Styles.dart';
+import '../../../../../core/utils/styles.dart';
 import '../../../../../core/utils/assets.dart';
 
 class BestSilerViewItem extends StatelessWidget {
-  const BestSilerViewItem({super.key});
+   BestSilerViewItem({super.key,required this.bookModel});
+ final BookModel bookModel;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        GoRouter.of(context).push(AppRouter.kBookDetails);
+        GoRouter.of(context).push(AppRouter.kBookDetails,
+        extra: bookModel);
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -23,15 +27,8 @@ class BestSilerViewItem extends StatelessWidget {
           height: 120,
           child: Row(
             children: [
-              AspectRatio(
-                aspectRatio: 2.5 / 4,
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: Colors.red,
-                      image: DecorationImage(
-                          image: AssetImage(AssetsApp.home), fit: BoxFit.fill)),
-                ),
+              CustomListView(
+                imageUrl: bookModel.volumeInfo.imageLinks!.thumbnail ,
               ),
               const SizedBox(
                 width: 30,
@@ -43,8 +40,7 @@ class BestSilerViewItem extends StatelessWidget {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * .5,
                       child: Text(
-                        'Harry Potterand the Goblet of Fire',
-                        style: TextStyles.textStyle20
+bookModel.volumeInfo.title !,                       style: TextStyles.textStyle20
                             .copyWith(fontFamily: kGTSectraFine),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -54,17 +50,18 @@ class BestSilerViewItem extends StatelessWidget {
                       height: 2,
                     ),
                     Text(
-                      'J.K. Rowling',
-                      style: TextStyles.textStyle14,
+bookModel.volumeInfo.authors![0],                      style: TextStyles.textStyle14,
                     ),
                     Row(
                       children: [
                         Text(
-                          '19.99 €',
+                          'free',
                           style: TextStyles.textStyle20.copyWith(fontWeight:FontWeight.bold),
                         ),
                        Spacer(),
-                       const BookRating(
+                        BookRating(
+                         rating: bookModel.volumeInfo.averageRating??0   ,
+                          counter: bookModel.volumeInfo.ratingsCount??0,
                        )
                       ],
                     ),

@@ -1,7 +1,7 @@
 import 'package:bookly/Feature/search/presentation/views/widget/custom_search_text_filed.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/utils/Styles.dart';
+import '../../../../../core/utils/styles.dart';
 import '../../../../home/presentation/Views/widgets/best_siler_item.dart';
 
 class SearchViewBody extends StatelessWidget {
@@ -45,8 +45,8 @@ class SeachListView extends StatelessWidget {
       itemBuilder: (context, index) {
         return const Padding(
           padding: EdgeInsets.symmetric(vertical: 10),
-          child: BestSilerViewItem(),
-        );
+          // child: BestSilerViewItem(),
+       child:  Text('data'));
       },
       itemCount: 10,
     );

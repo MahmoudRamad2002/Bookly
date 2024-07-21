@@ -1,17 +1,19 @@
+import 'package:bookly/Feature/home/data/models/book_models/book_model.dart';
 import 'package:bookly/Feature/home/presentation/Views/widgets/action_button.dart';
 import 'package:bookly/Feature/home/presentation/Views/widgets/book_rating.dart';
 import 'package:bookly/Feature/home/presentation/Views/widgets/custom_book_details_app_bar.dart';
 import 'package:bookly/Feature/home/presentation/Views/widgets/custom_button_book.dart';
 import 'package:bookly/Feature/home/presentation/Views/widgets/custom_list_view.dart';
 import 'package:bookly/Feature/home/presentation/Views/widgets/feature_book_list_view.dart';
-import 'package:bookly/core/utils/Styles.dart';
+import 'package:bookly/Feature/home/presentation/Views/widgets/smilier_book_list_view.dart';
+import 'package:bookly/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BookDetailsViewBody extends StatelessWidget {
-  const BookDetailsViewBody({super.key});
-
+BookDetailsViewBody({super.key,required this.bookModel});
+final BookModel bookModel;
   @override
   Widget build(BuildContext context) {
     var hiegh = MediaQuery.of(context).size.height;
@@ -23,13 +25,15 @@ class BookDetailsViewBody extends StatelessWidget {
           CustomBookDetailsAppBar(),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: width * .2),
-            child: CustomListView(),
+            child: CustomListView(
+              imageUrl:bookModel.volumeInfo.imageLinks?.thumbnail ??'',
+            ),
           ),
           SizedBox(
             height: 43,
           ),
           Text(
-            'The Jungle Book',
+            bookModel.volumeInfo.title!,
             style: TextStyles.textStyle30.copyWith(
               fontWeight: FontWeight.bold,
             ),
@@ -38,7 +42,7 @@ class BookDetailsViewBody extends StatelessWidget {
             height: 4,
           ),
           Text(
-            'Rudyard Kipling',
+            bookModel.volumeInfo.authors![0],
             style: TextStyles.textStyle18.copyWith(
                 color: Color(0xff707070),
                 fontFamily: GoogleFonts.montserratTextTheme.toString()),
@@ -46,7 +50,10 @@ class BookDetailsViewBody extends StatelessWidget {
           SizedBox(
             height: 14,
           ),
-          BookRating(),
+          BookRating(
+            rating: bookModel.volumeInfo.averageRating??0,
+            counter: bookModel.volumeInfo.ratingsCount??0,
+          ),
           SizedBox(
             height: 37,
           ),
@@ -74,25 +81,5 @@ class BookDetailsViewBody extends StatelessWidget {
   }
 }
 
-class SimilarBookListView extends StatelessWidget {
-  const SimilarBookListView({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height*.15,
-      child: ListView.builder(
-        //itemCount: 5,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: CustomListView(),
-          );
-        },
-
-      ),
-    );;
-  }
-}
 

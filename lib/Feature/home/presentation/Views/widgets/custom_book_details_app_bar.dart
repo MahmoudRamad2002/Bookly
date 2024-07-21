@@ -9,7 +9,7 @@ class CustomBookDetailsAppBar extends StatelessWidget {
     return Row(
       children: [
         IconButton(onPressed: () {
-          //GoRouter.of(context).push('/home');
+          GoRouter.of(context).pop();
         }, icon: Icon(Icons.close)),
         Spacer(),
         IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart_outlined)),
